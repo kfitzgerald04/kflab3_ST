@@ -39,7 +39,7 @@ public class StayPriceCalculatorTest {
     void applycChildDiscount_Test () {
         double price = StayPriceCalculator.calculateStayPrice(1, 9, false, false);
 
-        assertEquals(25.0, price); 
+        assertEquals(25.0, price, "Children discount should $25 for 1 night"); 
     }
 
     @Test
@@ -47,7 +47,7 @@ public class StayPriceCalculatorTest {
     void fullPrice_Test() {
         double price = StayPriceCalculator.calculateStayPrice(1, 30, false, false);
 
-        assertEquals(50.0, price);
+        assertEquals(50.0, price, "Adults 13-64, pay the full price of $50 for 1 night");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class StayPriceCalculatorTest {
     void applySeniorDiscount_Test () {
         double price = StayPriceCalculator.calculateStayPrice(1, 95, false, false);
 
-        assertEquals(40.0, price);
+        assertEquals(40.0, price, "Senior discount should be $40 for 1 night");
     }
 
     // -------------------- BOUNDARY VALUES ------------------- //
@@ -65,7 +65,7 @@ public class StayPriceCalculatorTest {
     void child_nightsLowerBoundary_Test() {
         double price = StayPriceCalculator.calculateStayPrice(1, 0, false, false); // child == 0 && nigths == 1
 
-        assertEquals(25.0, price); 
+        assertEquals(25.0, price, "Children discount should $25 for 1 night"); 
     }
 
 
@@ -74,7 +74,7 @@ public class StayPriceCalculatorTest {
     void child_nightsUpperBoundary_Test() {
         double price = StayPriceCalculator.calculateStayPrice(14, 12, false, false); // age == 12 && nights = 14
 
-        assertEquals(350.0, price);
+        assertEquals(350.0, price, "Children discount should $350 for 14 nights");
     }
 
 
@@ -83,7 +83,7 @@ public class StayPriceCalculatorTest {
     void adult_nightsLowerBoundary_Test() {
         double price = StayPriceCalculator.calculateStayPrice(1, 13, false, false); // age == 13 && nights == 1
 
-        assertEquals(50.0, price);
+        assertEquals(50.0, price, "Adults 13-64, pay the full price of $50 for 1 night");
     }
 
     // T2.4 is an error case not covered in this section 
@@ -93,7 +93,7 @@ public class StayPriceCalculatorTest {
     void senior_nightBoundary_Test() {
         double price = StayPriceCalculator.calculateStayPrice(1, 65, false, false); // age == 65 && nights == 1 
 
-        assertEquals(40.0, price);
+        assertEquals(40.0, price, "Senior discount should be $40 for 1 night");
     }
 
     // T2.6 isn't covered here explicitly because it is implied by T2.5
@@ -107,7 +107,7 @@ public class StayPriceCalculatorTest {
     void noDiscount_Test() {
         double price = StayPriceCalculator.calculateStayPrice(4, 30, false, false);
 
-        assertEquals(200, price);
+        assertEquals(200, price, "Non AR residents and Veterans pay the full price of $200 for 4 nights");
     }
 
     @Test
@@ -115,7 +115,7 @@ public class StayPriceCalculatorTest {
     void arResidentDiscount_Test() {
         double price = StayPriceCalculator.calculateStayPrice(4, 30, true, false);
 
-        assertEquals(190, price);
+        assertEquals(190, price, "AR Residents receive $10 off total of $200 for 4 nights");
     }
 
     @Test
@@ -123,7 +123,7 @@ public class StayPriceCalculatorTest {
     void veteranDiscount_Test() {
         double price = StayPriceCalculator.calculateStayPrice(4, 30, false, true);
 
-        assertEquals(180, price);
+        assertEquals(180, price, "Veterans receive 10% off total of $200 for 4 nights");
     }
 
     @Test
@@ -131,7 +131,7 @@ public class StayPriceCalculatorTest {
     void bothARResdentAndVeteran_Test() {
         double price = StayPriceCalculator.calculateStayPrice(4, 30, true, true);
 
-        assertEquals(171, price);
+        assertEquals(171, price, "4 nights for an AR resident who is also a Veteran = $171");
     }
 
 }
